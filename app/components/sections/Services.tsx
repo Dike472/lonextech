@@ -100,6 +100,17 @@ const services: Service[] = [
   },
 ]
 
+// ── Shared animation variants ────────────────────────────────────────────────
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show:   { opacity: 1, y: 0 },
+}
+
+const cardTransition = { duration: 0.55, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }
+
+// ── Card ─────────────────────────────────────────────────────────────────────
+
 interface CardProps {
   service: Service
   isFlipped: boolean
@@ -114,7 +125,7 @@ function ServiceCard({ service: { Icon, name, teaser, description, bullets }, is
       Front face: default orientation (no extra rotation) — visible when card at 0deg, hidden when card at 180deg.
       Back face: pre-rotated 180deg — hidden when card at 0deg, visible when card at 180deg (total = 360 = front-facing).
     */
-    <div className="h-[380px]" style={{ perspective: '1000px' }}>
+    <div className="h-[310px]" style={{ perspective: '1000px' }}>
       <motion.div
         className="relative h-full w-full"
         style={{ transformStyle: 'preserve-3d' as const }}
@@ -124,7 +135,7 @@ function ServiceCard({ service: { Icon, name, teaser, description, bullets }, is
       >
         {/* ── Front face ── */}
         <div
-          className="absolute inset-0 flex flex-col gap-5 rounded-2xl border border-rim bg-bg p-6 transition-[border-color,box-shadow] duration-300 hover:border-accent/40 hover:shadow-[0_0_28px_rgba(59,130,246,0.13)]"
+          className="absolute inset-0 flex flex-col gap-5 rounded-2xl border border-rim bg-bg p-6 lg:p-8 transition-[border-color,box-shadow] duration-300 hover:border-accent/40 hover:shadow-[0_0_28px_rgba(59,130,246,0.13)]"
           style={{
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
@@ -150,42 +161,48 @@ function ServiceCard({ service: { Icon, name, teaser, description, bullets }, is
           </button>
         </div>
 
-        {/* ── Back face — pre-rotated 180deg so backface-visibility hides it by default ── */}
+        {/* ── Back face ──
+            justify-between ensures ← Back is always pinned to the bottom
+            regardless of how long the description or bullet list is.
+        */}
         <div
-          className="absolute inset-0 flex flex-col gap-4 rounded-2xl border border-accent/30 bg-bg p-6"
+          className="absolute inset-0 flex flex-col justify-between rounded-2xl border border-accent/30 bg-bg p-6 lg:p-8"
           style={{
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
             transform: 'rotateY(180deg)',
           } as React.CSSProperties}
         >
-          <p className="font-sans text-sm leading-relaxed text-muted">
-            {description}
-          </p>
-
-          <div className="flex flex-1 flex-col gap-3">
-            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-muted/70">
-              What&apos;s included
+          {/* Top: description + bullets */}
+          <div className="flex flex-col gap-3 overflow-hidden">
+            <p className="font-sans text-sm leading-relaxed text-muted">
+              {description}
             </p>
-            <ul className="space-y-2">
-              {bullets.map((bullet) => (
-                <li
-                  key={bullet}
-                  className="flex items-start gap-2.5 font-sans text-sm text-ink"
-                >
-                  <span
-                    className="mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
-                    aria-hidden="true"
-                  />
-                  {bullet}
-                </li>
-              ))}
-            </ul>
+            <div>
+              <p className="mb-2 font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-muted/70">
+                What&apos;s included
+              </p>
+              <ul className="space-y-1.5">
+                {bullets.map((bullet) => (
+                  <li
+                    key={bullet}
+                    className="flex items-start gap-2.5 font-sans text-sm text-ink"
+                  >
+                    <span
+                      className="mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                      aria-hidden="true"
+                    />
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
+          {/* Bottom: back button — always anchored here by justify-between */}
           <button
             onClick={() => onFlip(false)}
-            className="w-fit font-sans text-sm font-medium text-cyan transition-opacity duration-150 hover:opacity-70"
+            className="w-fit pt-2 font-sans text-sm font-medium text-cyan transition-opacity duration-150 hover:opacity-70"
             aria-label={`Go back to ${name} overview`}
           >
             ← Back
@@ -195,6 +212,8 @@ function ServiceCard({ service: { Icon, name, teaser, description, bullets }, is
     </div>
   )
 }
+
+// ── Section ───────────────────────────────────────────────────────────────────
 
 export default function Services() {
   const [flipped, setFlipped] = useState<boolean[]>(Array(6).fill(false))
@@ -237,22 +256,42 @@ export default function Services() {
     <section ref={sectionRef} id="services" className="bg-surface py-16 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-        <div className="mb-14 lg:mb-16">
+        {/* Section heading reveal */}
+        <motion.div
+          className="mb-14 text-center sm:text-left lg:mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        >
           <h2 className="font-heading text-3xl font-bold text-ink sm:text-4xl lg:text-5xl">
             Services I Offer
           </h2>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Staggered card grid */}
+        <motion.div
+          className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07 } } }}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-80px' }}
+        >
           {services.map((service, i) => (
-            <ServiceCard
+            <motion.div
               key={service.name}
-              service={service}
-              isFlipped={flipped[i]}
-              onFlip={(val) => handleFlip(i, val)}
-            />
+              variants={cardVariants}
+              transition={cardTransition}
+            >
+              <ServiceCard
+                service={service}
+                isFlipped={flipped[i]}
+                onFlip={(val) => handleFlip(i, val)}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
+
       </div>
     </section>
   )

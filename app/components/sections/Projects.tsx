@@ -1,57 +1,34 @@
+'use client'
+
 import Image from 'next/image'
+import { motion } from 'motion/react'
 
 const projects = [
   {
-    id: "lammysms",
-    name: "LammySMS",
+    id: 'lammysms',
+    name: 'LammySMS',
     description:
-      "Live platform — SMS verification number reselling with Flutterwave payments, Next.js, Laravel, MySQL",
-    tags: ["Next.js", "Laravel", "MySQL", "Flutterwave", "Tailwind CSS"],
-    liveUrl: "https://lammysms.com",
-    githubUrl: "#",
-    desktopImg: "/desktop%20screenshot%20for%20lammysms.com.png",
-    mobileImg: "/mobile%20screenshot%20for%20lammysms.com.png",
+      'Live platform — SMS verification number reselling with Flutterwave payments, Next.js, Laravel, MySQL',
+    tags: ['Next.js', 'Laravel', 'MySQL', 'Flutterwave', 'Tailwind CSS'],
+    liveUrl: 'https://lammysms.com',
+    desktopImg: '/desktop%20screenshot%20for%20lammysms.com.png',
   },
   {
-    id: "lammylogs",
-    name: "LammyLogs Marketplace",
+    id: 'lammylogs',
+    name: 'LammyLogs Marketplace',
     description:
-      "Live marketplace — digital goods marketplace with wallet system, Telegram delivery, Laravel + MySQL",
-    tags: ["Laravel", "MySQL", "Telegram API", "Tailwind CSS"],
-    liveUrl: "https://lammylogsmarketplace.com",
-    githubUrl: "#",
-    desktopImg: "/desktop%20screenshot%20for%20lammylogs.png",
-    mobileImg: "/mobile%20screenshot%20for%20lammylogs.png",
+      'Live marketplace — digital goods marketplace with wallet system, Telegram delivery, Laravel + MySQL',
+    tags: ['Laravel', 'MySQL', 'Telegram API', 'Tailwind CSS'],
+    liveUrl: 'https://lammylogsmarketplace.com',
+    desktopImg: '/desktop%20screenshot%20for%20lammylogs.png',
   },
 ]
 
-interface ProjectImgProps {
-  desktopSrc: string
-  mobileSrc: string
-  alt: string
-}
+const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
-function ProjectImg({ desktopSrc, mobileSrc, alt }: ProjectImgProps) {
-  return (
-    <>
-      {/* Desktop screenshot — visible on sm+ */}
-      <Image
-        src={desktopSrc}
-        alt={alt}
-        fill
-        sizes="(max-width: 1024px) 100vw, 50vw"
-        className="hidden object-cover object-top transition-transform duration-[400ms] ease-out group-hover:scale-[1.03] sm:block"
-      />
-      {/* Mobile screenshot — visible only on xs */}
-      <Image
-        src={mobileSrc}
-        alt={alt}
-        fill
-        sizes="100vw"
-        className="block object-cover object-top transition-transform duration-[400ms] ease-out group-hover:scale-[1.03] sm:hidden"
-      />
-    </>
-  )
+const cardVariants = {
+  hidden: { opacity: 0, y: 28, scale: 0.97 },
+  show:   { opacity: 1, y: 0,  scale: 1 },
 }
 
 export default function Projects() {
@@ -60,39 +37,55 @@ export default function Projects() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         {/* Section header */}
-        <div className="mb-12 lg:mb-16">
+        <motion.div
+          className="mb-12 text-center sm:text-left lg:mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.55, ease }}
+        >
           <p className="mb-3 font-sans text-[11px] font-medium uppercase tracking-[0.2em] text-accent">
             Selected Work
           </p>
           <h2 className="font-heading text-3xl font-bold text-ink sm:text-4xl lg:text-5xl">
             Featured Projects
           </h2>
-        </div>
+        </motion.div>
 
-        {/* Equal 2-col grid on desktop, single col on mobile — items-stretch forces equal card heights */}
-        <div className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
+        {/* Staggered project grid */}
+        <motion.div
+          className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2"
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12 } } }}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-80px' }}
+        >
           {projects.map((project) => (
-            <article
+            <motion.article
               key={project.id}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-t-2 border-rim border-t-accent bg-surface"
+              variants={cardVariants}
+              transition={{ duration: 0.6, ease }}
+              className="group flex flex-col overflow-hidden rounded-2xl border border-rim bg-bg"
             >
               {/* Screenshot area */}
-              <div className="relative h-[200px] w-full overflow-hidden sm:h-[240px] lg:h-[260px]">
-                <ProjectImg
-                  desktopSrc={project.desktopImg}
-                  mobileSrc={project.mobileImg}
+              <div className="relative h-[220px] w-full overflow-hidden sm:h-[240px] lg:h-[260px]">
+                <Image
+                  src={project.desktopImg}
                   alt={project.name}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover object-top transition-transform duration-[400ms] ease-out group-hover:scale-[1.03]"
                 />
-                {/* Lighter overlay — only covers bottom 40%, screenshot is fully visible above */}
+                {/* Subtle bottom fade */}
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-full"
-                  style={{ background: 'linear-gradient(to bottom, transparent 80%, rgba(5,7,13,0.4) 100%)' }}
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-[30%]"
+                  style={{ background: 'linear-gradient(to bottom, transparent 60%, rgba(5,7,13,0.55) 100%)' }}
                 />
               </div>
 
-              {/* Card content — flex-1 so all cards stretch to same height */}
-              <div className="flex flex-1 flex-col p-5 sm:p-6">
+              {/* Card content */}
+              <div className="flex flex-1 flex-col p-6 lg:p-8">
                 <div className="flex-1 space-y-3">
                   <h3 className="font-heading text-xl font-bold text-ink sm:text-2xl">
                     {project.name}
@@ -112,7 +105,6 @@ export default function Projects() {
                   </div>
                 </div>
 
-                {/* Buttons — stack on mobile, row on sm+ */}
                 <div className="mt-4 flex flex-col gap-2 sm:flex-row">
                   <a
                     href={project.liveUrl}
@@ -122,17 +114,12 @@ export default function Projects() {
                   >
                     View Live
                   </a>
-                  <a
-                    href={project.githubUrl}
-                    className="inline-flex min-h-[44px] w-full items-center justify-center rounded-lg border border-rim px-6 font-sans text-sm font-semibold text-ink transition-colors hover:border-accent/40 hover:bg-surface-raised sm:w-auto"
-                  >
-                    GitHub
-                  </a>
                 </div>
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
+
       </div>
     </section>
   )

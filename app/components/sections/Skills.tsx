@@ -36,7 +36,7 @@ export default function Skills() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         {/* Section header — eyebrow 1 of 3 */}
-        <div className="mb-14 lg:mb-16">
+        <div className="mb-14 text-center sm:text-left lg:mb-16">
           <p className="mb-3 font-sans text-[11px] font-medium uppercase tracking-[0.2em] text-accent">
             Tech Stack
           </p>

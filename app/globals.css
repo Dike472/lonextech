@@ -40,10 +40,16 @@ h4,
 h5,
 h6 {
   text-wrap: balance;
+  line-height: 1.15;
 }
+
+h1 { letter-spacing: -0.03em; }
+h2 { letter-spacing: -0.02em; }
+h3 { letter-spacing: -0.01em; }
 
 p {
   text-wrap: pretty;
+  line-height: 1.7;
 }
 
 /* Remove <details> marker so the hamburger summary renders cleanly */
