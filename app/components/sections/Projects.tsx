@@ -87,7 +87,7 @@ export default function Projects() {
                 <div
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-x-0 bottom-0 h-full"
-                  style={{ background: 'linear-gradient(to bottom, transparent 60%, rgba(5,7,13,0.75) 100%)' }}
+                  style={{ background: 'linear-gradient(to bottom, transparent 80%, rgba(5,7,13,0.4) 100%)' }}
                 />
               </div>
 
