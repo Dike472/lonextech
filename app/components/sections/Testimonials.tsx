@@ -46,7 +46,7 @@ export default function Testimonials() {
           className="mb-14 text-center sm:text-left lg:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
+          viewport={{ once: true, amount: 0 }}
           transition={{ duration: 0.55, ease }}
         >
           <h2 className="font-heading text-3xl font-bold text-ink sm:text-4xl lg:text-5xl">
@@ -60,7 +60,7 @@ export default function Testimonials() {
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: '-80px' }}
+          viewport={{ once: true, amount: 0 }}
         >
           {testimonials.map((t) => (
             <motion.blockquote

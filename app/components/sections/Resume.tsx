@@ -113,7 +113,7 @@ function SkillBar({
   index?: number
 }) {
   const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
+  const inView = useInView(ref, { once: true, amount: 0 })
 
   return (
     <div ref={ref} className="space-y-1.5">
@@ -185,7 +185,7 @@ export default function Resume() {
           className="mb-14 text-center sm:text-left lg:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
+          viewport={{ once: true, amount: 0 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
           <h2 className="font-heading text-3xl font-bold text-ink sm:text-4xl lg:text-5xl">
@@ -206,7 +206,7 @@ export default function Resume() {
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: '-60px' }}
+          viewport={{ once: true, amount: 0 }}
         >
           {techCategories.map((cat) => (
             <motion.div

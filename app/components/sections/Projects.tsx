@@ -41,7 +41,7 @@ export default function Projects() {
           className="mb-12 text-center sm:text-left lg:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
+          viewport={{ once: true, amount: 0 }}
           transition={{ duration: 0.55, ease }}
         >
           <p className="mb-3 font-sans text-[11px] font-medium uppercase tracking-[0.2em] text-accent">
@@ -58,7 +58,7 @@ export default function Projects() {
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12 } } }}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: '-80px' }}
+          viewport={{ once: true, amount: 0 }}
         >
           {projects.map((project) => (
             <motion.article

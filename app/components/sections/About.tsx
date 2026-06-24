@@ -31,7 +31,7 @@ export default function About() {
             className="order-last flex flex-col items-center gap-5 text-center lg:items-start lg:gap-7 lg:order-first lg:pl-4 lg:text-left xl:pl-8"
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
+            viewport={{ once: true, amount: 0 }}
             transition={{ duration: 0.65, ease }}
           >
             <div className="w-full">
@@ -99,7 +99,7 @@ export default function About() {
             className="order-first self-start lg:order-last"
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
+            viewport={{ once: true, amount: 0 }}
             transition={{ duration: 0.65, ease, delay: 0.15 }}
           >
             {/* Mobile: full-width landscape crop */}

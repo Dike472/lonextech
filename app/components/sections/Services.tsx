@@ -218,7 +218,7 @@ function ServiceCard({ service: { Icon, name, teaser, description, bullets }, is
 export default function Services() {
   const [flipped, setFlipped] = useState<boolean[]>(Array(6).fill(false))
   const sectionRef = useRef<HTMLElement>(null)
-  const isInView = useInView(sectionRef, { once: false, margin: '-100px' })
+  const isInView = useInView(sectionRef, { once: false, amount: 0 })
   const teaserFired = useRef(false)
 
   /* Auto-flip teaser — fires every time section enters viewport */
@@ -261,7 +261,7 @@ export default function Services() {
           className="mb-14 text-center sm:text-left lg:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
+          viewport={{ once: true, amount: 0 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
           <h2 className="font-heading text-3xl font-bold text-ink sm:text-4xl lg:text-5xl">
@@ -275,7 +275,7 @@ export default function Services() {
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07 } } }}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: '-80px' }}
+          viewport={{ once: true, amount: 0 }}
         >
           {services.map((service, i) => (
             <motion.div
