@@ -2,101 +2,87 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, useInView } from 'motion/react'
-import {
-  Code2,
-  LayoutDashboard,
-  ShoppingBag,
-  Plug,
-  Database,
-  Layers,
-} from 'lucide-react'
+import { Frame, Globe, Smartphone, Cpu, Settings2 } from 'lucide-react'
 import { FadeUp } from '../ui/FadeUp'
 
 interface Service {
+  id: string
   Icon: React.ElementType
   name: string
-  teaser: string
   description: string
   bullets: string[]
 }
 
 const services: Service[] = [
   {
-    Icon: Code2,
-    name: 'Full-Stack Web Development',
-    teaser: 'Frontend to backend, end-to-end',
+    id: 'uiux',
+    Icon: Frame,
+    name: 'UI / UX DESIGN',
     description:
-      'End-to-end web apps built with Next.js + Laravel — typed APIs, clean architecture, and responsive UI shipped on schedule.',
+      'I design Simple, clean, and easy-to-use interfaces for the best user experience.',
     bullets: [
-      'Next.js & React frontends',
-      'Laravel REST APIs',
-      'MySQL / PostgreSQL databases',
-      'Responsive Tailwind CSS UI',
+      'Website UI design',
+      'Mobile app UI design',
+      'Wireframes & prototypes',
+      'Brand interface design',
+      'And lots more',
     ],
   },
   {
-    Icon: LayoutDashboard,
-    name: 'SaaS Platform Development',
-    teaser: 'Subscriptions, payments, dashboards',
+    id: 'web',
+    Icon: Globe,
+    name: 'WEB DEVELOPMENT',
     description:
-      'Subscription-based platforms with auth systems, payment integration, usage tracking, and multi-tenant dashboards.',
+      'I build Modern and responsive websites built to look great and work smoothly on all devices.',
     bullets: [
-      'Stripe & Flutterwave payments',
-      'User authentication & roles',
-      'Usage metrics & analytics',
-      'Multi-tenant architecture',
+      'Business & portfolio websites',
+      'Landing pages',
+      'E-commerce websites',
+      'Investment platforms',
+      'Website redesigns',
+      'Custom web solutions',
     ],
   },
   {
-    Icon: ShoppingBag,
-    name: 'E-Commerce & Marketplace',
-    teaser: 'Listings, wallets, order management',
-    description:
-      'Full-featured marketplace solutions with product catalogs, wallet systems, automated order flow, and digital goods delivery.',
+    id: 'mobile',
+    Icon: Smartphone,
+    name: 'MOBILE APP DEVELOPMENT',
+    description: 'I build Cross-platform Android and iOS apps for any business.',
     bullets: [
-      'Product catalog management',
-      'Wallet & payout systems',
-      'Order tracking & automation',
-      'Digital goods delivery',
+      'Android applications',
+      'iOS applications',
+      'Cross-platform apps',
+      'Delivery & tracking apps',
+      'Real-time apps',
+      'API-powered mobile application',
     ],
   },
   {
-    Icon: Plug,
-    name: 'API Integration',
-    teaser: 'Connect any third-party service',
+    id: 'ai',
+    Icon: Cpu,
+    name: 'AI & API INTEGRATION',
     description:
-      'Connecting your platform to payment gateways, SMS providers, and third-party services via robust, versioned REST APIs.',
+      'Connecting your website or app with smart tools and third-party services for better functionality and performance.',
     bullets: [
+      'AI chatbot integration',
+      'Image detection systems',
       'Payment gateway integration',
-      'SMS API & verification',
-      'Webhook handling',
-      'OAuth & third-party auth',
+      'SMS & email systems',
+      'Third-party API integration',
+      'Automation tools',
     ],
   },
   {
-    Icon: Database,
-    name: 'Database Architecture',
-    teaser: 'Schema design that scales',
-    description:
-      'MySQL and PostgreSQL schema design, Prisma ORM setup, index optimization, and migration management built to scale.',
+    id: 'maintenance',
+    Icon: Settings2,
+    name: 'MAINTENANCE & SUPPORT',
+    description: 'Keeping your website fast, secure and fully functional.',
     bullets: [
-      'MySQL & PostgreSQL design',
-      'Prisma ORM setup',
-      'Query & index optimization',
-      'Migration management',
-    ],
-  },
-  {
-    Icon: Layers,
-    name: 'UI/UX Implementation',
-    teaser: 'Pixel-perfect, animated interfaces',
-    description:
-      'Figma-to-code implementations with Framer Motion animations, accessibility-first markup, and mobile-first responsive layouts.',
-    bullets: [
-      'Figma to code',
-      'Framer Motion animations',
-      'Mobile-first responsive design',
-      'Accessibility (WCAG AA)',
+      'Website updates & bug fixes',
+      'Performance optimization',
+      'Security updates',
+      'Hosting & deployment',
+      'SEO improvements',
     ],
   },
 ]
@@ -109,81 +95,218 @@ interface CardProps {
   onFlip: (val: boolean) => void
 }
 
-function ServiceCard({ service: { Icon, name, teaser, description, bullets }, isFlipped, onFlip }: CardProps) {
+function ServiceCard({
+  service: { Icon, name, description, bullets },
+  isFlipped,
+  onFlip,
+}: CardProps) {
   return (
-    <div className="h-[310px]" style={{ perspective: '1000px' }}>
+    <motion.div
+      className="service-card-wrapper"
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+      style={{ height: '100%', perspective: '1000px' }}
+    >
       <motion.div
-        className="relative h-full w-full"
-        style={{ transformStyle: 'preserve-3d' as const }}
+        style={{
+          transformStyle: 'preserve-3d' as const,
+          position: 'relative',
+          height: '100%',
+          minHeight: '280px',
+          width: '100%',
+        }}
         animate={{ rotateY: isFlipped ? 180 : 0 }}
         transition={{ duration: 0.6, ease: 'easeInOut' }}
-        whileHover={{ y: -4 }}
       >
-        {/* Front face */}
+        {/* ── Front ── */}
         <div
-          className="absolute inset-0 flex flex-col gap-5 rounded-2xl border border-rim bg-bg p-6 lg:p-8 transition-[border-color,box-shadow] duration-300 hover:border-accent/40 hover:shadow-[0_0_28px_rgba(59,130,246,0.13)]"
-          style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' } as React.CSSProperties}
+          className="service-card-face"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '2rem',
+            borderRadius: '12px',
+            background: '#0F1420',
+            border: '1px solid rgba(59,130,246,0.3)',
+            boxShadow: '0 0 24px rgba(59,130,246,0.07)',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+          } as React.CSSProperties}
         >
-          <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-accent/10 text-accent">
-            <Icon size={22} strokeWidth={1.5} />
-          </div>
-          <div className="flex flex-1 flex-col gap-2">
-            <h3 className="font-heading text-lg font-bold leading-snug text-ink">{name}</h3>
-            <p className="font-sans text-sm leading-relaxed text-muted">{teaser}</p>
-          </div>
-          <button
-            onClick={() => onFlip(true)}
-            className="w-fit font-sans text-sm font-medium text-cyan transition-opacity duration-150 hover:opacity-70"
-            aria-label={`View more about ${name}`}
+          {/* Icon */}
+          <div
+            style={{
+              width: 52,
+              height: 52,
+              flexShrink: 0,
+              background: 'rgba(59,130,246,0.1)',
+              border: '1px solid rgba(59,130,246,0.2)',
+              borderRadius: 10,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
           >
-            View More →
+            <Icon size={24} color="#3B82F6" strokeWidth={1.5} />
+          </div>
+
+          {/* Title */}
+          <h3
+            style={{
+              marginTop: '1.5rem',
+              fontSize: '0.95rem',
+              fontWeight: 700,
+              color: '#F5F7FA',
+              letterSpacing: '0.05em',
+              textTransform: 'uppercase',
+            }}
+          >
+            {name}
+          </h3>
+
+          {/* Description */}
+          <p
+            style={{
+              marginTop: '0.75rem',
+              fontSize: '0.875rem',
+              lineHeight: 1.6,
+              color: '#94A3B8',
+              flex: 1,
+            }}
+          >
+            {description}
+          </p>
+
+          {/* CTA */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              onFlip(true)
+            }}
+            style={{
+              paddingTop: '1.5rem',
+              paddingRight: 0,
+              paddingBottom: 0,
+              paddingLeft: 0,
+              fontSize: '0.75rem',
+              letterSpacing: '0.1em',
+              color: '#3B82F6',
+              textTransform: 'uppercase',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              textAlign: 'left',
+              fontFamily: 'inherit',
+            }}
+            aria-label={`Learn more about ${name}`}
+          >
+            VIEW MORE →
           </button>
         </div>
 
-        {/* Back face */}
+        {/* ── Back ── */}
         <div
-          className="absolute inset-0 flex flex-col justify-between rounded-2xl border border-accent/30 bg-bg p-6 lg:p-8"
+          className="service-card-face"
           style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '2rem',
+            borderRadius: '12px',
+            background: '#0F1420',
+            border: '1px solid rgba(59,130,246,0.3)',
+            boxShadow: '0 0 24px rgba(59,130,246,0.07)',
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
             transform: 'rotateY(180deg)',
           } as React.CSSProperties}
         >
-          <div className="flex flex-col gap-3 overflow-hidden">
-            <p className="font-sans text-sm leading-relaxed text-muted">{description}</p>
-            <div>
-              <p className="mb-2 font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-muted/70">
-                What&apos;s included
-              </p>
-              <ul className="space-y-1.5">
-                {bullets.map((bullet) => (
-                  <li key={bullet} className="flex items-start gap-2.5 font-sans text-sm text-ink">
-                    <span className="mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
-                    {bullet}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          {/* Title */}
+          <h3
+            style={{
+              flexShrink: 0,
+              fontSize: '0.95rem',
+              fontWeight: 700,
+              color: '#3B82F6',
+              letterSpacing: '0.05em',
+              textTransform: 'uppercase',
+            }}
+          >
+            {name}
+          </h3>
+
+          {/* Bullet list */}
+          <ul
+            className="service-card-list"
+            style={{
+              flex: 1,
+              marginTop: '1rem',
+              overflowY: 'auto',
+              listStyle: 'none',
+              padding: 0,
+              margin: '1rem 0 0',
+            }}
+          >
+            {bullets.map((bullet) => (
+              <li
+                key={bullet}
+                style={{
+                  borderLeft: '2px solid #3B82F6',
+                  paddingLeft: '0.75rem',
+                  paddingTop: '0.4rem',
+                  paddingBottom: '0.4rem',
+                  fontSize: '0.875rem',
+                  color: '#F5F7FA',
+                }}
+              >
+                {bullet}
+              </li>
+            ))}
+          </ul>
+
+          {/* Go back */}
           <button
-            onClick={() => onFlip(false)}
-            className="w-fit pt-2 font-sans text-sm font-medium text-cyan transition-opacity duration-150 hover:opacity-70"
+            onClick={(e) => {
+              e.stopPropagation()
+              onFlip(false)
+            }}
+            style={{
+              flexShrink: 0,
+              paddingTop: '1rem',
+              paddingRight: 0,
+              paddingBottom: 0,
+              paddingLeft: 0,
+              fontSize: '0.75rem',
+              letterSpacing: '0.1em',
+              color: '#94A3B8',
+              textTransform: 'uppercase',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              textAlign: 'left',
+              fontFamily: 'inherit',
+            }}
             aria-label={`Go back to ${name} overview`}
           >
-            ← Back
+            ← GO BACK
           </button>
         </div>
       </motion.div>
-    </div>
+    </motion.div>
   )
 }
 
 // ── Section ───────────────────────────────────────────────────────────────────
 
 export default function Services() {
-  const [flipped, setFlipped] = useState<boolean[]>(Array(6).fill(false))
+  const [flipped, setFlipped] = useState<boolean[]>(
+    Array(services.length).fill(false)
+  )
   const sectionRef = useRef<HTMLElement>(null)
-  const isInView = useInView(sectionRef, { once: false, amount: 0 })
+  const isInView = useInView(sectionRef, { once: false, amount: 0.1 })
   const teaserFired = useRef(false)
 
   useEffect(() => {
@@ -194,17 +317,26 @@ export default function Services() {
     if (teaserFired.current) return
     teaserFired.current = true
 
-    const flip = setTimeout(() => {
-      setFlipped((prev) => { const n = [...prev]; n[0] = true; return n })
+    // flip card 0 to back after 0.8s, hold 1.5s, flip back
+    const flipTimer = setTimeout(() => {
+      setFlipped((prev) => {
+        const n = [...prev]
+        n[0] = true
+        return n
+      })
     }, 800)
 
-    const unflip = setTimeout(() => {
-      setFlipped((prev) => { const n = [...prev]; n[0] = false; return n })
-    }, 3000)
+    const unflipTimer = setTimeout(() => {
+      setFlipped((prev) => {
+        const n = [...prev]
+        n[0] = false
+        return n
+      })
+    }, 2900) // 800 + 600 (animation) + 1500 (hold)
 
     return () => {
-      clearTimeout(flip)
-      clearTimeout(unflip)
+      clearTimeout(flipTimer)
+      clearTimeout(unflipTimer)
     }
   }, [isInView])
 
@@ -219,25 +351,47 @@ export default function Services() {
   return (
     <section ref={sectionRef} id="services" className="bg-surface py-16 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
         <FadeUp className="mb-14 text-center sm:text-left lg:mb-16">
           <h2 className="font-heading text-3xl font-bold text-ink sm:text-4xl lg:text-5xl">
             Services I Offer
           </h2>
         </FadeUp>
 
-        <div className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, i) => (
-            <FadeUp key={service.name} delay={i * 0.08}>
-              <ServiceCard
-                service={service}
-                isFlipped={flipped[i]}
-                onFlip={(val) => handleFlip(i, val)}
-              />
-            </FadeUp>
-          ))}
-        </div>
+        {/*
+          6-column grid on desktop:
+          cards 0-2 each span 2 columns → fills the 3-col row
+          card 3 starts at col 2 and spans 2 → centered left
+          card 4 starts at col 4 and spans 2 → centered right
+          result: row 2 has 2 cards centred under the 3-card row
+        */}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-6">
+          {services.map((service, i) => {
+            const lgClass =
+              i === 0
+                ? 'lg:col-span-2'
+                : i === 1
+                  ? 'lg:col-span-2'
+                  : i === 2
+                    ? 'lg:col-span-2'
+                    : i === 3
+                      ? 'lg:col-start-2 lg:col-span-2'
+                      : 'lg:col-start-4 lg:col-span-2'
 
+            return (
+              <FadeUp
+                key={service.id}
+                delay={i * 0.08}
+                className={`h-full ${lgClass}`}
+              >
+                <ServiceCard
+                  service={service}
+                  isFlipped={flipped[i]}
+                  onFlip={(val) => handleFlip(i, val)}
+                />
+              </FadeUp>
+            )
+          })}
+        </div>
       </div>
     </section>
   )

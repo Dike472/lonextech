@@ -60,6 +60,130 @@ summary::marker {
   content: "";
 }
 
+/* ── Service cards ─────────────────────────────────────── */
+
+/* Hover: lift already handled by Framer Motion whileHover.
+   This adds the stronger border glow on the card faces. */
+.service-card-wrapper:hover .service-card-face {
+  border-color: rgba(59, 130, 246, 0.65) !important;
+  box-shadow: 0 0 32px rgba(59, 130, 246, 0.18) !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Blue custom scrollbar for the back-face bullet list */
+.service-card-list {
+  scrollbar-width: thin;
+  scrollbar-color: #3B82F6 transparent;
+}
+.service-card-list::-webkit-scrollbar {
+  width: 4px;
+}
+.service-card-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.service-card-list::-webkit-scrollbar-thumb {
+  background: #3B82F6;
+  border-radius: 2px;
+}
+
+/* ── Contact form inputs ───────────────────────────────── */
+
+.contact-input {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+  color: #F5F7FA;
+  padding: 0.75rem 0;
+  font-size: 0.875rem;
+  font-family: inherit;
+  outline: none !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+
+.contact-input::placeholder {
+  color: #94A3B8;
+}
+
+.contact-input:focus,
+.contact-input:focus-visible {
+  outline: none !important;
+  border-bottom-color: #3B82F6;
+  /* box-shadow instead of filter — filter escapes overflow:hidden and causes page scrollbar */
+  box-shadow: 0 4px 14px -4px rgba(59, 130, 246, 0.45);
+}
+
+.contact-textarea {
+  resize: vertical;
+  min-height: 120px;
+  padding-top: 0.75rem;
+}
+
+/* Pill submit button */
+.contact-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2.5rem;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: inherit;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.contact-submit:hover {
+  opacity: 0.9;
+  box-shadow: 0 0 28px rgba(59, 130, 246, 0.4);
+}
+
+.contact-submit:active {
+  transform: scale(0.98);
+}
+
+/* Social icon hover */
+.social-icon-btn {
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  text-decoration: none;
+}
+
+.social-icon-btn:hover {
+  background: rgba(59, 130, 246, 0.2) !important;
+  border-color: rgba(59, 130, 246, 0.5) !important;
+  transform: translateY(-2px);
+}
+
+/* Mobile: full-width submit + prevent iOS auto-zoom on input focus.
+   iOS Safari zooms in on any input with font-size < 16px, which causes
+   the viewport to expand and the page to scroll horizontally. */
+@media (max-width: 767px) {
+  .contact-submit {
+    width: 100%;
+  }
+
+  .contact-input {
+    font-size: 16px;
+  }
+}
+
+/* Belt-and-suspenders: all native form controls on mobile stay at 16px */
+@media (max-width: 767px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
 /* Honour reduced-motion preference globally */
 @media (prefers-reduced-motion: reduce) {
   *,

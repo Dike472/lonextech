@@ -3,24 +3,49 @@
 import Image from 'next/image'
 import { FadeUp } from '../ui/FadeUp'
 
-const projects = [
+interface Project {
+  id: string
+  name: string
+  description: string
+  tags: string[]
+  liveUrl: string
+  desktopImg: string
+  imgStyle: React.CSSProperties
+}
+
+const projects: Project[] = [
   {
     id: 'lammysms',
     name: 'LammySMS',
     description:
-      'Live platform — SMS verification number reselling with Flutterwave payments, Next.js, Laravel, MySQL',
-    tags: ['Next.js', 'Laravel', 'MySQL', 'Flutterwave', 'Tailwind CSS'],
+      'A live SMS verification number reselling platform built for the Nigerian market. Users fund their wallet, purchase virtual numbers from multiple providers, and receive real-time SMS codes for service verification. Built with Next.js, Prisma, MySQL, and Flutterwave payments.',
+    tags: ['Next.js', 'Typescript', 'Node.js', 'Prisma', 'MySQL', 'Tailwind CSS'],
     liveUrl: 'https://lammysms.com',
     desktopImg: '/desktop%20screenshot%20for%20lammysms.com.png',
+    // contain: every pixel of the screenshot is visible
+    imgStyle: {
+      objectFit: 'contain',
+      objectPosition: 'top center',
+    },
   },
   {
     id: 'lammylogs',
     name: 'LammyLogs Marketplace',
     description:
-      'Live marketplace — digital goods marketplace with wallet system, Telegram delivery, Laravel + MySQL',
-    tags: ['Laravel', 'MySQL', 'Telegram API', 'Tailwind CSS'],
+      'A live digital goods marketplace where users buy premium social media accounts and digital products. Features a wallet-based payment system. Built with Laravel, PHP, MySQL, and Bootstrap.',
+    tags: ['Laravel', 'PHP', 'MySQL', 'Bootstrap'],
     liveUrl: 'https://lammylogsmarketplace.com',
     desktopImg: '/desktop%20screenshot%20for%20lammylogs.png',
+    // cover + top keeps website content fully in frame.
+    // clip-path hides only the bottom 5% (≈54px on a 1080p screenshot)
+    // which is enough to remove the Windows taskbar pinned apps row.
+    // clip-path is purely visual — it never touches the element's box model
+    // so it does not conflict with fill's enforced height:100%.
+    imgStyle: {
+      objectFit: 'cover',
+      objectPosition: 'top',
+      clipPath: 'inset(0 0 5% 0)',
+    },
   },
 ]
 
@@ -42,19 +67,24 @@ export default function Projects() {
           {projects.map((project, i) => (
             <FadeUp key={project.id} delay={i * 0.12} className="flex">
               <article className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-rim bg-bg">
-                {/* Screenshot area */}
-                <div className="relative aspect-video w-full overflow-hidden bg-bg">
+
+                {/* Screenshot */}
+                <div className="relative aspect-video w-full overflow-hidden bg-surface">
                   <Image
                     src={project.desktopImg}
-                    alt={project.name}
+                    alt={`${project.name} screenshot`}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-contain object-top transition-transform duration-[400ms] ease-out group-hover:scale-[1.03]"
+                    style={project.imgStyle}
+                    className="transition-transform duration-[400ms] ease-out group-hover:scale-[1.03]"
                   />
                   <div
                     aria-hidden="true"
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-[30%]"
-                    style={{ background: 'linear-gradient(to bottom, transparent 60%, rgba(5,7,13,0.55) 100%)' }}
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-[20%]"
+                    style={{
+                      background:
+                        'linear-gradient(to bottom, transparent 0%, rgba(5,7,13,0.55) 100%)',
+                    }}
                   />
                 </div>
 
@@ -90,6 +120,7 @@ export default function Projects() {
                     </a>
                   </div>
                 </div>
+
               </article>
             </FadeUp>
           ))}
