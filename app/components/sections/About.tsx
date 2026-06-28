@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'motion/react'
+import { FadeUp } from '../ui/FadeUp'
 
 const stats = [
   { value: '12+', label: 'Projects Completed' },
@@ -17,9 +17,6 @@ const focuses = [
   'Performance Optimization',
 ]
 
-// Shared animation spec
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
-
 export default function About() {
   return (
     <section id="about" className="py-14 lg:py-32">
@@ -27,53 +24,54 @@ export default function About() {
         <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[55fr_45fr] lg:gap-24 xl:gap-32">
 
           {/* ── Left: Content ── */}
-          <motion.div
-            className="order-last flex flex-col items-center gap-5 text-center lg:items-start lg:gap-7 lg:order-first lg:pl-4 lg:text-left xl:pl-8"
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.65, ease }}
-          >
-            <div className="w-full">
+          <div className="order-last flex flex-col items-center gap-5 text-center lg:items-start lg:gap-7 lg:order-first lg:pl-4 lg:text-left xl:pl-8">
+
+            <FadeUp className="w-full">
               <h2 className="font-heading text-3xl font-bold text-ink sm:text-4xl lg:text-5xl">
                 About Me
               </h2>
-            </div>
+            </FadeUp>
 
             <div className="space-y-3 text-left font-sans text-sm leading-[1.75] text-muted sm:text-base lg:space-y-4">
-              <p>
-                I&apos;m Dike Precious, a Full-Stack Web Developer based in Nigeria
-                with a passion for building digital products that are both
-                beautiful and functional.
-              </p>
-              <p>
-                I specialise in crafting full-stack applications using Next.js
-                on the frontend and Laravel on the backend, with a strong focus
-                on clean architecture, responsive design, and developer experience.
-              </p>
-              <p>
-                When I&apos;m not writing code, I enjoy exploring new technologies,
-                contributing to open-source projects, and pushing the limits of
-                what&apos;s possible on the web.
-              </p>
+              <FadeUp delay={0.1}>
+                <p>
+                  I&apos;m Dike Precious, a Full-Stack Web Developer based in Nigeria
+                  with a passion for building digital products that are both
+                  beautiful and functional.
+                </p>
+              </FadeUp>
+              <FadeUp delay={0.18}>
+                <p>
+                  I specialise in crafting full-stack applications using Next.js
+                  on the frontend and Laravel on the backend, with a strong focus
+                  on clean architecture, responsive design, and developer experience.
+                </p>
+              </FadeUp>
+              <FadeUp delay={0.26}>
+                <p>
+                  When I&apos;m not writing code, I enjoy exploring new technologies,
+                  contributing to open-source projects, and pushing the limits of
+                  what&apos;s possible on the web.
+                </p>
+              </FadeUp>
             </div>
 
             {/* Stats */}
             <div className="grid w-full grid-cols-3 gap-4 border-t border-rim pt-4 lg:pt-6">
-              {stats.map((stat) => (
-                <div key={stat.label}>
+              {stats.map((stat, i) => (
+                <FadeUp key={stat.label} delay={i * 0.1}>
                   <p className="font-heading text-3xl font-bold text-accent">
                     {stat.value}
                   </p>
                   <p className="mt-0.5 font-sans text-xs leading-tight text-muted">
                     {stat.label}
                   </p>
-                </div>
+                </FadeUp>
               ))}
             </div>
 
             {/* Focus areas */}
-            <div className="w-full space-y-3 border-t border-rim pt-4 text-left lg:pt-6">
+            <FadeUp className="w-full space-y-3 border-t border-rim pt-4 text-left lg:pt-6" delay={0.15}>
               <p className="font-sans text-xs font-medium uppercase tracking-widest text-muted">
                 What I focus on
               </p>
@@ -91,17 +89,11 @@ export default function About() {
                   </li>
                 ))}
               </ul>
-            </div>
-          </motion.div>
+            </FadeUp>
+          </div>
 
           {/* ── Right: Photo column ── */}
-          <motion.div
-            className="order-first self-start lg:order-last"
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.65, ease, delay: 0.15 }}
-          >
+          <FadeUp className="order-first self-start lg:order-last" delay={0.2}>
             {/* Mobile: full-width landscape crop */}
             <div className="relative h-[64vw] w-full overflow-hidden lg:hidden">
               <Image
@@ -117,7 +109,7 @@ export default function About() {
               <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-bg to-transparent" />
             </div>
 
-            {/* Desktop: portrait cutout — mask dissolves all edges into bg */}
+            {/* Desktop: portrait cutout */}
             <div
               className="relative ml-auto hidden w-fit lg:block"
               style={{
@@ -143,7 +135,7 @@ export default function About() {
                 priority
               />
             </div>
-          </motion.div>
+          </FadeUp>
 
         </div>
       </div>

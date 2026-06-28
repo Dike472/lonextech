@@ -10,6 +10,7 @@ import {
   Database,
   Layers,
 } from 'lucide-react'
+import { FadeUp } from '../ui/FadeUp'
 
 interface Service {
   Icon: React.ElementType
@@ -100,15 +101,6 @@ const services: Service[] = [
   },
 ]
 
-// ── Shared animation variants ────────────────────────────────────────────────
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
-  show:   { opacity: 1, y: 0 },
-}
-
-const cardTransition = { duration: 0.55, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }
-
 // ── Card ─────────────────────────────────────────────────────────────────────
 
 interface CardProps {
@@ -119,12 +111,6 @@ interface CardProps {
 
 function ServiceCard({ service: { Icon, name, teaser, description, bullets }, isFlipped, onFlip }: CardProps) {
   return (
-    /*
-      Outer div: holds perspective so children get proper 3D depth.
-      motion.div: the card body that rotates — transformStyle preserve-3d keeps children in shared 3D space.
-      Front face: default orientation (no extra rotation) — visible when card at 0deg, hidden when card at 180deg.
-      Back face: pre-rotated 180deg — hidden when card at 0deg, visible when card at 180deg (total = 360 = front-facing).
-    */
     <div className="h-[310px]" style={{ perspective: '1000px' }}>
       <motion.div
         className="relative h-full w-full"
@@ -133,25 +119,18 @@ function ServiceCard({ service: { Icon, name, teaser, description, bullets }, is
         transition={{ duration: 0.6, ease: 'easeInOut' }}
         whileHover={{ y: -4 }}
       >
-        {/* ── Front face ── */}
+        {/* Front face */}
         <div
           className="absolute inset-0 flex flex-col gap-5 rounded-2xl border border-rim bg-bg p-6 lg:p-8 transition-[border-color,box-shadow] duration-300 hover:border-accent/40 hover:shadow-[0_0_28px_rgba(59,130,246,0.13)]"
-          style={{
-            backfaceVisibility: 'hidden',
-            WebkitBackfaceVisibility: 'hidden',
-          } as React.CSSProperties}
+          style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' } as React.CSSProperties}
         >
           <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-accent/10 text-accent">
             <Icon size={22} strokeWidth={1.5} />
           </div>
-
           <div className="flex flex-1 flex-col gap-2">
-            <h3 className="font-heading text-lg font-bold leading-snug text-ink">
-              {name}
-            </h3>
+            <h3 className="font-heading text-lg font-bold leading-snug text-ink">{name}</h3>
             <p className="font-sans text-sm leading-relaxed text-muted">{teaser}</p>
           </div>
-
           <button
             onClick={() => onFlip(true)}
             className="w-fit font-sans text-sm font-medium text-cyan transition-opacity duration-150 hover:opacity-70"
@@ -161,10 +140,7 @@ function ServiceCard({ service: { Icon, name, teaser, description, bullets }, is
           </button>
         </div>
 
-        {/* ── Back face ──
-            justify-between ensures ← Back is always pinned to the bottom
-            regardless of how long the description or bullet list is.
-        */}
+        {/* Back face */}
         <div
           className="absolute inset-0 flex flex-col justify-between rounded-2xl border border-accent/30 bg-bg p-6 lg:p-8"
           style={{
@@ -173,33 +149,22 @@ function ServiceCard({ service: { Icon, name, teaser, description, bullets }, is
             transform: 'rotateY(180deg)',
           } as React.CSSProperties}
         >
-          {/* Top: description + bullets */}
           <div className="flex flex-col gap-3 overflow-hidden">
-            <p className="font-sans text-sm leading-relaxed text-muted">
-              {description}
-            </p>
+            <p className="font-sans text-sm leading-relaxed text-muted">{description}</p>
             <div>
               <p className="mb-2 font-sans text-[11px] font-semibold uppercase tracking-[0.12em] text-muted/70">
                 What&apos;s included
               </p>
               <ul className="space-y-1.5">
                 {bullets.map((bullet) => (
-                  <li
-                    key={bullet}
-                    className="flex items-start gap-2.5 font-sans text-sm text-ink"
-                  >
-                    <span
-                      className="mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
-                      aria-hidden="true"
-                    />
+                  <li key={bullet} className="flex items-start gap-2.5 font-sans text-sm text-ink">
+                    <span className="mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
                     {bullet}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
-
-          {/* Bottom: back button — always anchored here by justify-between */}
           <button
             onClick={() => onFlip(false)}
             className="w-fit pt-2 font-sans text-sm font-medium text-cyan transition-opacity duration-150 hover:opacity-70"
@@ -221,7 +186,6 @@ export default function Services() {
   const isInView = useInView(sectionRef, { once: false, amount: 0 })
   const teaserFired = useRef(false)
 
-  /* Auto-flip teaser — fires every time section enters viewport */
   useEffect(() => {
     if (!isInView) {
       teaserFired.current = false
@@ -256,41 +220,23 @@ export default function Services() {
     <section ref={sectionRef} id="services" className="bg-surface py-16 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-        {/* Section heading reveal */}
-        <motion.div
-          className="mb-14 text-center sm:text-left lg:mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0 }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        >
+        <FadeUp className="mb-14 text-center sm:text-left lg:mb-16">
           <h2 className="font-heading text-3xl font-bold text-ink sm:text-4xl lg:text-5xl">
             Services I Offer
           </h2>
-        </motion.div>
+        </FadeUp>
 
-        {/* Staggered card grid */}
-        <motion.div
-          className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3"
-          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07 } } }}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0 }}
-        >
+        <div className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, i) => (
-            <motion.div
-              key={service.name}
-              variants={cardVariants}
-              transition={cardTransition}
-            >
+            <FadeUp key={service.name} delay={i * 0.08}>
               <ServiceCard
                 service={service}
                 isFlipped={flipped[i]}
                 onFlip={(val) => handleFlip(i, val)}
               />
-            </motion.div>
+            </FadeUp>
           ))}
-        </motion.div>
+        </div>
 
       </div>
     </section>

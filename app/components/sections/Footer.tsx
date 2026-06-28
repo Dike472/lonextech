@@ -2,8 +2,7 @@
 
 import Image from 'next/image'
 import { motion } from 'motion/react'
-
-// ── Nav links ─────────────────────────────────────────────────────────────────
+import { FadeUp } from '../ui/FadeUp'
 
 const navLinks = [
   { href: '#about',        label: 'About' },
@@ -13,8 +12,6 @@ const navLinks = [
   { href: '#testimonials', label: 'Testimonials' },
   { href: '#contact',      label: 'Contact' },
 ]
-
-// ── SVG icons ─────────────────────────────────────────────────────────────────
 
 function GitHubIcon({ size = 16 }: { size?: number }) {
   return (
@@ -57,8 +54,6 @@ function MailIcon({ size = 16 }: { size?: number }) {
   )
 }
 
-// ── Social chips (icon-only) ───────────────────────────────────────────────────
-
 const socialChips = [
   { href: 'https://github.com/Dike472',       label: 'GitHub',    Icon: GitHubIcon },
   { href: '#',                                label: 'LinkedIn',  Icon: LinkedInIcon },
@@ -67,15 +62,11 @@ const socialChips = [
   { href: 'mailto:dikeprecious56@gmail.com',  label: 'Email',     Icon: MailIcon },
 ]
 
-// ── Contact links ─────────────────────────────────────────────────────────────
-
 const contactLinks = [
   { href: 'mailto:dikeprecious56@gmail.com', label: 'dikeprecious56@gmail.com', Icon: MailIcon },
   { href: 'https://wa.me/234XXXXXXXXXX',     label: 'WhatsApp Chat',            Icon: WhatsAppIcon },
   { href: 'https://github.com/Dike472',      label: 'Dike472 on GitHub',        Icon: GitHubIcon },
 ]
-
-// ── Footer ────────────────────────────────────────────────────────────────────
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -84,11 +75,10 @@ export default function Footer() {
     <footer className="border-t border-rim/40 bg-[#070b12]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-        {/* ── Main grid: wider brand col + two link cols ── */}
         <div className="grid grid-cols-1 gap-12 py-14 sm:grid-cols-[2fr_1fr_1fr] lg:py-20">
 
           {/* Col 1 — Brand */}
-          <div className="flex flex-col gap-6">
+          <FadeUp className="flex flex-col gap-6">
             <a href="/" className="flex w-fit items-center gap-2.5">
               <Image
                 src="/logo-recolored.png"
@@ -102,11 +92,10 @@ export default function Footer() {
               </span>
             </a>
 
-            <p className="max-w-[32ch] font-sans text-sm leading-relaxed text-accent/90">
+            <p className="max-w-[32ch] font-sans text-sm leading-relaxed text-muted">
               Full-stack developer crafting high-quality digital products with Next.js, Laravel, and modern web technologies.
             </p>
 
-            {/* Icon-only social chips */}
             <div className="flex items-center gap-2">
               {socialChips.map(({ href, label, Icon }) => (
                 <motion.a
@@ -123,48 +112,52 @@ export default function Footer() {
                 </motion.a>
               ))}
             </div>
-          </div>
+          </FadeUp>
 
           {/* Col 2 — Pages */}
-          <nav aria-label="Footer navigation">
-            <p className="mb-5 font-heading text-sm font-bold text-ink">Pages</p>
-            <ul className="space-y-0.5">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <motion.a
-                    href={link.href}
-                    className="inline-flex min-h-[38px] items-center font-sans text-sm text-muted"
-                    whileHover={{ color: '#F5F7FA', x: 4 }}
-                    transition={{ duration: 0.15 }}
-                  >
-                    {link.label}
-                  </motion.a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <FadeUp delay={0.1}>
+            <nav aria-label="Footer navigation">
+              <p className="mb-5 font-heading text-sm font-bold text-ink">Pages</p>
+              <ul className="space-y-0.5">
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <motion.a
+                      href={link.href}
+                      className="inline-flex min-h-[38px] items-center font-sans text-sm text-muted"
+                      whileHover={{ color: '#F5F7FA', x: 4 }}
+                      transition={{ duration: 0.15 }}
+                    >
+                      {link.label}
+                    </motion.a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </FadeUp>
 
           {/* Col 3 — Contact */}
-          <div>
-            <p className="mb-5 font-heading text-sm font-bold text-ink">Contact</p>
-            <ul className="space-y-0.5">
-              {contactLinks.map(({ href, label, Icon }) => (
-                <li key={label}>
-                  <motion.a
-                    href={href}
-                    target={href.startsWith('http') ? '_blank' : undefined}
-                    rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="inline-flex min-h-[38px] items-center gap-2.5 font-sans text-sm text-muted"
-                    whileHover={{ color: '#F5F7FA', x: 4 }}
-                    transition={{ duration: 0.15 }}
-                  >
-                    <Icon size={14} />
-                    {label}
-                  </motion.a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <FadeUp delay={0.2}>
+            <div>
+              <p className="mb-5 font-heading text-sm font-bold text-ink">Contact</p>
+              <ul className="space-y-0.5">
+                {contactLinks.map(({ href, label, Icon }) => (
+                  <li key={label}>
+                    <motion.a
+                      href={href}
+                      target={href.startsWith('http') ? '_blank' : undefined}
+                      rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="inline-flex min-h-[38px] items-center gap-2.5 font-sans text-sm text-muted"
+                      whileHover={{ color: '#F5F7FA', x: 4 }}
+                      transition={{ duration: 0.15 }}
+                    >
+                      <Icon size={14} />
+                      {label}
+                    </motion.a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </FadeUp>
 
         </div>
 
