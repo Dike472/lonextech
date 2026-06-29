@@ -57,7 +57,7 @@ function MailIcon({ size = 16 }: { size?: number }) {
 
 const socialChips = [
   { href: 'https://github.com/Dike472',       label: 'GitHub',    Icon: GitHubIcon },
-  { href: '#',                                label: 'LinkedIn',  Icon: LinkedInIcon },
+  { href: 'https://www.linkedin.com/in/dike-precious-ebuka-1a49ab267', label: 'LinkedIn',  Icon: LinkedInIcon },
   { href: 'https://x.com/Dikepre33728817',    label: 'Twitter',   Icon: TwitterIcon },
   { href: 'https://wa.me/2349157364221',      label: 'WhatsApp',  Icon: WhatsAppIcon },
   { href: 'mailto:dikeprecious56@gmail.com',  label: 'Email',     Icon: MailIcon },

@@ -311,9 +311,15 @@ export default function Resume() {
         {/* Download CV CTA */}
         <FadeUp className="mt-14 flex justify-center lg:mt-16">
           <a
-            href="#"
-            className="inline-flex h-12 items-center justify-center rounded-lg border border-accent/40 px-10 font-sans text-sm font-semibold text-accent transition-colors hover:bg-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            href="/api/download-cv"
+            download="Dike_Precious_CV.pdf"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-accent/40 px-10 font-sans text-sm font-semibold text-accent transition-colors hover:bg-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
             Download CV
           </a>
         </FadeUp>

@@ -165,7 +165,9 @@ export default function Hero() {
                 </a>
                 <span className="h-4 w-px bg-rim" aria-hidden="true" />
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/in/dike-precious-ebuka-1a49ab267"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="LinkedIn"
                   className="inline-flex min-h-[44px] items-center gap-2 font-sans text-sm text-muted transition-colors duration-200 hover:text-accent"
                 >
