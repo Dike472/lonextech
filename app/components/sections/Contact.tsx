@@ -139,7 +139,7 @@ export default function Contact() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          access_key: '3e389ae9-96b0-4a15-89a8-929cbfb99b6e',
           subject: `New portfolio message from ${name}`,
           from_name: name,
           email,
