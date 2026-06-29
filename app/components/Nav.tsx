@@ -14,6 +14,11 @@ const navLinks = [
   { href: '#contact', label: 'Contact' },
 ]
 
+function scrollToSection(id: string) {
+  const el = document.getElementById(id)
+  if (el) el.scrollIntoView({ behavior: 'smooth' })
+}
+
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
@@ -71,9 +76,9 @@ export default function Nav() {
           {/* Desktop nav — visible at lg (1024px+) */}
           <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary">
             {navLinks.map((link) => (
-              <a
+              <button
                 key={link.href}
-                href={link.href}
+                onClick={() => scrollToSection(link.href.slice(1))}
                 className={`font-sans text-sm transition-colors duration-200 ${
                   isActive(link.href)
                     ? 'text-accent'
@@ -81,18 +86,18 @@ export default function Nav() {
                 }`}
               >
                 {link.label}
-              </a>
+              </button>
             ))}
           </nav>
 
           <div className="flex items-center gap-3">
             {/* Desktop CTA */}
-            <a
-              href="#contact"
+            <button
+              onClick={() => scrollToSection('contact')}
               className="hidden h-9 items-center justify-center rounded-lg bg-accent px-5 font-sans text-sm font-semibold text-white transition-colors duration-200 hover:bg-accent/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:inline-flex"
             >
               Hire Me
-            </a>
+            </button>
 
             {/* Hamburger / X button — 44px touch target, only on mobile */}
             <button
@@ -144,27 +149,25 @@ export default function Nav() {
               aria-label="Mobile navigation"
             >
               {navLinks.map((link) => (
-                <a
+                <button
                   key={link.href}
-                  href={link.href}
-                  onClick={closeMenu}
-                  className={`flex min-h-[44px] items-center border-b border-rim/30 font-sans text-sm transition-colors last:border-0 ${
+                  onClick={() => { scrollToSection(link.href.slice(1)); closeMenu() }}
+                  className={`flex min-h-[44px] w-full items-center border-b border-rim/30 font-sans text-sm transition-colors last:border-0 ${
                     isActive(link.href)
                       ? 'text-accent'
                       : 'text-muted hover:text-ink'
                   }`}
                 >
                   {link.label}
-                </a>
+                </button>
               ))}
               <div className="py-3">
-                <a
-                  href="#contact"
-                  onClick={closeMenu}
+                <button
+                  onClick={() => { scrollToSection('contact'); closeMenu() }}
                   className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-accent px-6 font-sans text-sm font-semibold text-white transition-colors hover:bg-accent/90"
                 >
                   Hire Me
-                </a>
+                </button>
               </div>
             </nav>
           </motion.div>

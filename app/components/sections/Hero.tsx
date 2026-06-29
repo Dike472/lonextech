@@ -135,18 +135,18 @@ export default function Hero() {
 
               {/* CTAs */}
               <div className="hero-ctas flex flex-wrap justify-center gap-3 md:justify-start">
-                <a
-                  href="#projects"
+                <button
+                  onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
                   className="inline-flex h-12 items-center justify-center rounded-lg bg-accent px-8 font-sans text-sm font-semibold text-white transition-colors duration-200 hover:bg-accent/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
                   View My Work
-                </a>
-                <a
-                  href="#contact"
+                </button>
+                <button
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                   className="inline-flex h-12 items-center justify-center rounded-lg border border-rim px-8 font-sans text-sm font-semibold text-ink transition-colors duration-200 hover:border-accent/40 hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
                   Hire Me
-                </a>
+                </button>
               </div>
 
               {/* Social links */}
