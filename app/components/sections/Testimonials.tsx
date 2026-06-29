@@ -8,24 +8,24 @@ const testimonials = [
       'Dike delivered our client portal in record time and the quality was excellent. His attention to detail and communication throughout the project made the entire process smooth.',
     author: 'Amara Okonkwo',
     role: 'CEO',
-    company: 'TechBridge Nigeria',
     initials: 'AO',
   },
   {
     quote:
-      'Working with Dike on our SMS platform was a great experience. He understood our requirements quickly and built exactly what we needed, with clean, maintainable code.',
-    author: 'James Okafor',
-    role: 'Product Manager',
-    company: 'StartupHub Lagos',
-    initials: 'JO',
+     'Dike built my SMS verification platformgrations, and automated refunds all working flawlessly in production. The attention to detail and the speed of delivery genuinely impressed us. A developer who understands both the technical and business side.',
+    author: 'Uduak Lambert',
+    company: 'Lammysms',
+    role: 'Owner',
+    initials: 'UL',
+    
   },
   {
     quote:
-      "The dashboard Dike built for us transformed how we track operations. Fast, responsive, and exactly on brand. We'll definitely be hiring him again.",
-    author: 'Chioma Eze',
-    role: 'Operations Director',
-    company: 'NovaBiz Solutions',
-    initials: 'CE',
+      "The marketplace website Dike delivered exceeded my expectations. The wallet system, product listings, all worked perfectly from day one. Clean code, responsive design, and zero handholding required — he just got it done.",
+    author: 'Uduak Lambert',
+    company: 'Lammylogs',
+    role: 'Owner',
+    initials: 'UL',
   },
 ]
 
@@ -42,7 +42,7 @@ export default function Testimonials() {
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((t, i) => (
-            <FadeUp key={t.author} delay={i * 0.1} className="flex">
+            <FadeUp key={i} delay={i * 0.1} className="flex">
               <blockquote className="flex h-full w-full flex-col gap-5 rounded-2xl border border-rim bg-surface p-6 lg:p-7">
                 <span
                   aria-hidden="true"
@@ -67,7 +67,7 @@ export default function Testimonials() {
                       {t.author}
                     </cite>
                     <p className="font-sans text-xs text-muted">
-                      {t.role}, {t.company}
+                      {t.role}{t.company ? `, ${t.company}` : ''}
                     </p>
                   </div>
                 </footer>

@@ -65,40 +65,49 @@ const personalSkills = [
 
 // ── Timeline data ─────────────────────────────────────────────────────────────
 
-const experiences = [
+type TimelineEntry = {
+  type: 'work' | 'education'
+  role: string
+  company: string
+  period: string
+  description: string
+  tags?: string[]
+}
+
+const experiences: TimelineEntry[] = [
   {
     type: 'work',
     role: 'Full-Stack Web Developer',
     company: 'Freelance',
-    period: '2023 - Present',
+    period: '2020 - Present',
     description:
-      'Designing and building full-stack web applications for clients across Nigeria and internationally. Focus on Next.js frontends, Laravel backends, and MySQL databases.',
-    tags: ['Next.js', 'Laravel', 'MySQL', 'Tailwind CSS'],
+      'Designing and building full-stack web products for clients across Nigeria and beyond. Delivered live platforms including an SMS verification marketplace and a digital goods marketplace — both fully deployed and serving real users.',
+    
   },
   {
     type: 'work',
-    role: 'Junior Web Developer',
-    company: 'Tech Startup (Contract)',
+    role: 'Frontend Developer',
+    company: 'Real Estate Project',
     period: '2022 - 2023',
     description:
-      'Developed and maintained web features for an internal business platform. Collaborated with senior developers to ship new features on a biweekly cycle.',
-    tags: ['React', 'PHP', 'MySQL'],
+      'Built the frontend interface for a real estate listings platform — property search, filtering, detailed listing pages, and a responsive layout optimised for mobile users. Focused on clean UI, fast load times, and smooth user experience across devices.',
+   
   },
 ]
 
-const education = [
+const education: TimelineEntry[] = [
   {
     type: 'education',
     role: 'B.Sc. Computer Science',
-    company: 'University of Nigeria',
-    period: '2019 - 2023',
+    company: 'Nnamdi Azikwe University Nigeria',
+    period: '2020 - 2025',
     description:
-      'Studied core computer science fundamentals including algorithms, data structures, software engineering, and databases. Final year project in web application development.',
-    tags: ['Algorithms', 'Databases', 'Software Engineering'],
+      'Earned a Bachelor of Science in Computer Science with a focus on software engineering, database systems, and web application development. Gained strong theoretical and practical foundations that directly underpin my approach to building scalable, well-architected web systems.',
+   
   },
 ]
 
-const timeline = [...experiences, ...education]
+const timeline: TimelineEntry[] = [...experiences, ...education]
 
 // ── Animated progress bar ─────────────────────────────────────────────────────
 
@@ -283,13 +292,15 @@ export default function Resume() {
                       </span>
                     </div>
                     <p className="mt-3 font-sans text-sm leading-relaxed text-muted">{entry.description}</p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {entry.tags.map((tag) => (
-                        <span key={tag} className="rounded-md border border-rim bg-surface px-2.5 py-1 font-sans text-xs text-muted">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                    {entry.tags && entry.tags.length > 0 && (
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {entry.tags.map((tag) => (
+                          <span key={tag} className="rounded-md border border-rim bg-surface px-2.5 py-1 font-sans text-xs text-muted">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </article>
                 </FadeUp>
               </li>
@@ -303,7 +314,7 @@ export default function Resume() {
             href="#"
             className="inline-flex h-12 items-center justify-center rounded-lg border border-accent/40 px-10 font-sans text-sm font-semibold text-accent transition-colors hover:bg-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
-            Download Full CV
+            Download CV
           </a>
         </FadeUp>
 

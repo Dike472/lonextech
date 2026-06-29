@@ -108,6 +108,15 @@ summary::marker {
   color: #94A3B8;
 }
 
+.contact-input:-webkit-autofill,
+.contact-input:-webkit-autofill:hover,
+.contact-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #0F1420 inset;
+  box-shadow: 0 0 0px 1000px #0F1420 inset;
+  -webkit-text-fill-color: #F5F7FA;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 .contact-input:focus,
 .contact-input:focus-visible {
   outline: none !important;

@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion } from 'motion/react'
 import { FadeUp } from '../ui/FadeUp'
 
@@ -57,14 +58,14 @@ function MailIcon({ size = 16 }: { size?: number }) {
 const socialChips = [
   { href: 'https://github.com/Dike472',       label: 'GitHub',    Icon: GitHubIcon },
   { href: '#',                                label: 'LinkedIn',  Icon: LinkedInIcon },
-  { href: '#',                                label: 'Twitter',   Icon: TwitterIcon },
-  { href: 'https://wa.me/234XXXXXXXXXX',      label: 'WhatsApp',  Icon: WhatsAppIcon },
+  { href: 'https://x.com/Dikepre33728817',    label: 'Twitter',   Icon: TwitterIcon },
+  { href: 'https://wa.me/2349157364221',      label: 'WhatsApp',  Icon: WhatsAppIcon },
   { href: 'mailto:dikeprecious56@gmail.com',  label: 'Email',     Icon: MailIcon },
 ]
 
 const contactLinks = [
   { href: 'mailto:dikeprecious56@gmail.com', label: 'dikeprecious56@gmail.com', Icon: MailIcon },
-  { href: 'https://wa.me/234XXXXXXXXXX',     label: 'WhatsApp Chat',            Icon: WhatsAppIcon },
+  { href: 'https://wa.me/2349157364221',     label: 'WhatsApp Chat',            Icon: WhatsAppIcon },
   { href: 'https://github.com/Dike472',      label: 'Dike472 on GitHub',        Icon: GitHubIcon },
 ]
 
@@ -79,7 +80,7 @@ export default function Footer() {
 
           {/* Col 1 — Brand */}
           <FadeUp className="flex flex-col gap-6">
-            <a href="/" className="flex w-fit items-center gap-2.5">
+            <Link href="/" className="flex w-fit items-center gap-2.5">
               <Image
                 src="/logo-recolored.png"
                 alt="Lonextech logo"
@@ -90,7 +91,7 @@ export default function Footer() {
               <span className="font-heading text-lg font-bold tracking-[-0.03em] text-ink">
                 Lonex<span className="text-accent">tech</span>
               </span>
-            </a>
+            </Link>
 
             <p className="max-w-[32ch] font-sans text-sm leading-relaxed text-muted">
               Full-stack developer crafting high-quality digital products with Next.js, Laravel, and modern web technologies.

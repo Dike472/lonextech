@@ -96,9 +96,7 @@ export default function Hero() {
 
               {/* Bio */}
               <p className="hero-bio font-sans text-base leading-relaxed text-muted sm:text-lg max-w-[65ch]">
-                Building premium digital experiences with Next.js, Laravel, and
-                modern web technologies. Passionate about clean code and
-                pixel-perfect interfaces.
+                A passionate Web Developer focused on creating modern, responsive and user-friendly web solutions..
               </p>
 
               {/* ── Mobile-only photo (between bio and CTAs) ── */}
@@ -178,7 +176,9 @@ export default function Hero() {
                 </a>
                 <span className="h-4 w-px bg-rim" aria-hidden="true" />
                 <a
-                  href="#"
+                  href="https://x.com/Dikepre33728817"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="Twitter / X"
                   className="inline-flex min-h-[44px] items-center gap-2 font-sans text-sm text-muted transition-colors duration-200 hover:text-accent"
                 >

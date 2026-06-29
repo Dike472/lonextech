@@ -36,22 +36,17 @@ export default function About() {
               <FadeUp delay={0.1}>
                 <p>
                   I&apos;m Dike Precious, a Full-Stack Web Developer based in Nigeria
-                  with a passion for building digital products that are both
-                  beautiful and functional.
+                  with a passion for building digital web solutions 
                 </p>
               </FadeUp>
               <FadeUp delay={0.18}>
                 <p>
-                  I specialise in crafting full-stack applications using Next.js
-                  on the frontend and Laravel on the backend, with a strong focus
-                  on clean architecture, responsive design, and developer experience.
+                  With many years of experience  I specialize in building high quality websites and web applications that are visually engaging and optimized for performance across all devices. My goal is to create web solutions that are functional and built to meet modern industry standards.
                 </p>
               </FadeUp>
               <FadeUp delay={0.26}>
                 <p>
-                  When I&apos;m not writing code, I enjoy exploring new technologies,
-                  contributing to open-source projects, and pushing the limits of
-                  what&apos;s possible on the web.
+                  
                 </p>
               </FadeUp>
             </div>

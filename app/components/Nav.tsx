@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion, AnimatePresence } from 'motion/react'
 
 const navLinks = [
@@ -53,7 +54,7 @@ export default function Nav() {
         <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
 
           {/* Logo + wordmark */}
-          <a href="/" className="flex shrink-0 items-center gap-2.5">
+          <Link href="/" className="flex shrink-0 items-center gap-2.5">
             <Image
               src="/logo-recolored.png"
               alt="Lonextech logo"
@@ -65,7 +66,7 @@ export default function Nav() {
             <span className="font-heading text-xl font-bold tracking-[-0.03em] text-ink">
               Lonex<span className="text-accent">tech</span>
             </span>
-          </a>
+          </Link>
 
           {/* Desktop nav — visible at lg (1024px+) */}
           <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary">
