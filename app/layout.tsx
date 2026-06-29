@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Sora, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import ScrollReset from "./components/ScrollReset";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${sora.variable} ${jakarta.variable}`}>
       <body className="min-h-[100dvh] bg-bg text-ink font-sans antialiased">
+        <ScrollReset />
         {children}
       </body>
     </html>
