@@ -3,6 +3,28 @@
 import { useRef, type ReactNode } from 'react'
 import { motion, useInView } from 'motion/react'
 import { FadeUp } from '../ui/FadeUp'
+import {
+  siNextdotjs, siReact, siTypescript, siTailwindcss,
+  siLaravel, siNodedotjs, siPhp, siFastapi,
+  siMysql, siPrisma, siPostgresql, siGit, siVercel,
+} from 'simple-icons'
+
+// ── Inline SVG icon renderer ──────────────────────────────────────────────────
+
+function TechIcon({ icon, color }: { icon: { path: string }; color: string }) {
+  return (
+    <svg
+      width={24}
+      height={24}
+      viewBox="0 0 24 24"
+      fill={color}
+      aria-hidden="true"
+      className="h-6 w-6 shrink-0"
+    >
+      <path d={icon.path} />
+    </svg>
+  )
+}
 
 // ── Tech stack data ───────────────────────────────────────────────────────────
 
@@ -10,29 +32,29 @@ const techCategories = [
   {
     label: 'Frontend',
     skills: [
-      { name: 'Next.js',      icon: 'https://cdn.simpleicons.org/nextdotjs/ffffff' },
-      { name: 'React',        icon: 'https://cdn.simpleicons.org/react/61DAFB' },
-      { name: 'TypeScript',   icon: 'https://cdn.simpleicons.org/typescript/3178C6' },
-      { name: 'Tailwind CSS', icon: 'https://cdn.simpleicons.org/tailwindcss/06B6D4' },
+      { name: 'Next.js',      icon: siNextdotjs,    color: '#ffffff' },
+      { name: 'React',        icon: siReact,         color: '#61DAFB' },
+      { name: 'TypeScript',   icon: siTypescript,    color: '#3178C6' },
+      { name: 'Tailwind CSS', icon: siTailwindcss,   color: '#06B6D4' },
     ],
   },
   {
     label: 'Backend',
     skills: [
-      { name: 'Laravel',   icon: 'https://cdn.simpleicons.org/laravel/FF2D20' },
-      { name: 'Node.js',   icon: 'https://cdn.simpleicons.org/nodedotjs/339933' },
-      { name: 'PHP',       icon: 'https://cdn.simpleicons.org/php/777BB4' },
-      { name: 'REST APIs', icon: 'https://cdn.simpleicons.org/fastapi/009688' },
+      { name: 'Laravel',   icon: siLaravel,   color: '#FF2D20' },
+      { name: 'Node.js',   icon: siNodedotjs, color: '#339933' },
+      { name: 'PHP',       icon: siPhp,       color: '#777BB4' },
+      { name: 'REST APIs', icon: siFastapi,   color: '#009688' },
     ],
   },
   {
     label: 'Database & Tools',
     skills: [
-      { name: 'MySQL',      icon: 'https://cdn.simpleicons.org/mysql/4479A1' },
-      { name: 'Prisma',     icon: 'https://cdn.simpleicons.org/prisma/ffffff' },
-      { name: 'PostgreSQL', icon: 'https://cdn.simpleicons.org/postgresql/4169E1' },
-      { name: 'Git',        icon: 'https://cdn.simpleicons.org/git/F05032' },
-      { name: 'Vercel',     icon: 'https://cdn.simpleicons.org/vercel/ffffff' },
+      { name: 'MySQL',      icon: siMysql,      color: '#4479A1' },
+      { name: 'Prisma',     icon: siPrisma,     color: '#ffffff' },
+      { name: 'PostgreSQL', icon: siPostgresql, color: '#4169E1' },
+      { name: 'Git',        icon: siGit,        color: '#F05032' },
+      { name: 'Vercel',     icon: siVercel,     color: '#ffffff' },
     ],
   },
 ]
@@ -197,15 +219,7 @@ export default function Resume() {
                 <ul className="space-y-4">
                   {cat.skills.map((skill) => (
                     <li key={skill.name} className="flex items-center gap-4">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={skill.icon}
-                        alt={skill.name}
-                        width={24}
-                        height={24}
-                        className="h-6 w-6 object-contain"
-                        loading="lazy"
-                      />
+                      <TechIcon icon={skill.icon} color={skill.color} />
                       <span className="font-sans text-sm font-medium text-ink">{skill.name}</span>
                     </li>
                   ))}
